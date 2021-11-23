@@ -1,9 +1,8 @@
 const inputText = document.getElementById('texto-tarefa')
 const listaTarefas = document.getElementById('lista-tarefas')
 const buttonTarefas = document.getElementById('criar-tarefa')
-listaTarefas.style.backgroundColor ='white'
-colorBarckground='rgb(128,128,128)'
-
+const limparTarefas= document.getElementById('apaga-tudo')
+const finalizados= document.getElementById('remover-finalizados')
 
 function insertTarefas(){
 
@@ -15,7 +14,8 @@ function insertTarefas(){
         listaTarefas.appendChild(lista)
         inputText.value=""
         colorSelected()
-        completedTaskss()
+        removeCompleteds()
+
        
     })
 
@@ -30,7 +30,7 @@ function colorSelected(){
             for(let i=0;i<list.length;i+=1){
                 list[i].style.backgroundColor = 'white' 
             }
-            event.target.style.backgroundColor = colorBarckground
+            event.target.style.backgroundColor = 'rgb(128, 128, 128)'
 
         })
    }
@@ -38,26 +38,32 @@ function colorSelected(){
 }
 colorSelected() 
 
-function completedTaskss(){
-    let list = document.querySelectorAll('.list')
-    for(let j=0;j<list.length;j+=1){
-        let elemento=list[j]
-            elemento.addEventListener('dblclick',function(event){
-            if (elemento.style.textDecoration =='line-through solid rgb(0, 0, 0)'){
-                elemento.classList.remove('completed')
-                event.target.style.textDecoration='none'
-            }else{
-                elemento.classList.add('completed')
-                event.target.style.textDecoration='line-through solid rgb(0, 0, 0)'
-            }
-
-
-
-    })
-    }
+listaTarefas.addEventListener("dblclick", completedTaskss)
+function completedTaskss(event){
+    let tarefaCompleta = event.target
+    tarefaCompleta.classList.toggle('completed')
 }
 
- 
+
+function clearAllTasks(){
+    limparTarefas.addEventListener("click", function(){
+        listaTarefas.innerHTML=""
+    })
+
+}
+clearAllTasks()
+
+
+function removeCompleteds(){
+    let list = document.querySelectorAll('.list')
+    finalizados.addEventListener("click", function(){
+        for (let i=0;i<list.length;i++){
+            if(list[i].classList.contains('completed')){
+                list[i].remove()
+            }
+        }
+    })
+}
 
 
 
