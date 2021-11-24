@@ -3,6 +3,10 @@ const listaTarefas = document.getElementById('lista-tarefas')
 const buttonTarefas = document.getElementById('criar-tarefa')
 const limparTarefas= document.getElementById('apaga-tudo')
 const finalizados= document.getElementById('remover-finalizados')
+const salvarTarefas= document.getElementById('salvar-tarefas')
+const moverCima= document.getElementById('mover-cima')
+const moverBaixo= document.getElementById('mover-baixo')
+const removeSelecionado= document.getElementById('remover-selecionado')
 
 function insertTarefas(){
 
@@ -15,13 +19,13 @@ function insertTarefas(){
         inputText.value=""
         colorSelected()
         removeCompleteds()
-
-       
+        removerSelecionado() 
+        moveParaBaixo()      
     })
-
 }
 insertTarefas()
 
+//Requisito8
 function colorSelected(){
     let list = document.querySelectorAll('.list')
     for(let j=0;j<list.length;j+=1){
@@ -38,13 +42,14 @@ function colorSelected(){
 }
 colorSelected() 
 
+//Requisito9
 listaTarefas.addEventListener("dblclick", completedTaskss)
 function completedTaskss(event){
     let tarefaCompleta = event.target
     tarefaCompleta.classList.toggle('completed')
 }
 
-
+//Requisito10
 function clearAllTasks(){
     limparTarefas.addEventListener("click", function(){
         listaTarefas.innerHTML=""
@@ -53,7 +58,7 @@ function clearAllTasks(){
 }
 clearAllTasks()
 
-
+//Requisito11
 function removeCompleteds(){
     let list = document.querySelectorAll('.list')
     finalizados.addEventListener("click", function(){
@@ -65,6 +70,41 @@ function removeCompleteds(){
     })
 }
 
+//Requisito12 
+function saveTasks(){
+    localStorage.setItem('saveTasks',listaTarefas.innerHTML)
+}
+salvarTarefas.addEventListener('click', saveTasks)
+
+function loadTasks(){
+    listaTarefas.innerHTML= localStorage.getItem('saveTasks')
+}
+loadTasks()
+
+//Requisito13
+function moveParaBaixo(){
+    let list = document.querySelectorAll('.list')
+    moverBaixo.addEventListener('click', function(event){
+        for (let i=0;i<list.length;i++){
+            if(list[i].style.backgroundColor == 'rgb(128, 128, 128)' && list[i].nextElementSibling != null){
+                list[i]=list[i+1]
+            }
+        }
+        })  
+    }
 
 
+//Requisito14
+function removerSelecionado(){
+    let list = document.querySelectorAll('.list')
+    removeSelecionado.addEventListener('click', function(event){
+            for(let i=0;i<list.length;i+=1){
+                if (list[i].style.backgroundColor == 'rgb(128, 128, 128)'){
+                    list[i].remove()
+                }
+            }
+
+        })
+}
+    
 
