@@ -20,7 +20,10 @@ function insertTarefas(){
         colorSelected()
         removeCompleteds()
         removerSelecionado() 
-        moveParaBaixo()      
+        moveParaBaixo()
+        moveParaCima()
+
+        
     })
 }
 insertTarefas()
@@ -33,8 +36,12 @@ function colorSelected(){
         elemento.addEventListener('click', function(event){
             for(let i=0;i<list.length;i+=1){
                 list[i].style.backgroundColor = 'white' 
+                list[i].classList.remove('selected')
+                
             }
             event.target.style.backgroundColor = 'rgb(128, 128, 128)'
+            elemento.classList.add('selected')
+
 
         })
    }
@@ -82,16 +89,39 @@ function loadTasks(){
 loadTasks()
 
 //Requisito13
-function moveParaBaixo(){
-    let list = document.querySelectorAll('.list')
-    moverBaixo.addEventListener('click', function(event){
-        for (let i=0;i<list.length;i++){
+/* function moveParaBaixo(){
+
+    moverBaixo.addEventListener('click', function(){
+        let list = document.querySelectorAll('.list')
+        for (let i=0;i<list.length;i+=1){
+
             if(list[i].style.backgroundColor == 'rgb(128, 128, 128)' && list[i].nextElementSibling != null){
-                list[i]=list[i+1]
+                let itemSelecionado=list[i].innerText
+                let itemTrocado = list[i+1].innerText
+                list[i]=itemTrocado
+                list[i+1]=itemSelecionado
             }
+            
         }
-        })  
-    }
+    })
+}
+
+function moveParaCima(){
+
+    moverCima.addEventListener('click', function(){
+        let list = document.querySelectorAll('.list')
+        for (let i=0;i<list.length;i+=1){
+
+            if(list[i].style.backgroundColor == 'rgb(128, 128, 128)' && list[i].previousElementSibling != null){
+
+                list[i].parentNode.insertBefore(list[i], list[i].previousElementSibling)
+
+            }
+            
+        }
+    })
+}
+ */
 
 
 //Requisito14
